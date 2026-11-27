@@ -1,3 +1,13 @@
+## Resume Contract Patch (`benchmarks/swebench/resume_contract.py`)
+
+This fork adds a pre-dispatch manifest guard for SWE-bench evaluation directories (`eval_output_dir/resume_manifest.json`). When resuming an interrupted run against an existing `output.jsonl`, `ensure_resume_manifest` verifies that `model_name`, `max_iterations`, `dataset`, `dataset_split`, `prompt_path`, and `workspace_type` match the active settings before worker processes spawn, raising `ResumeContractError` on drift instead of mixing incompatible attempts into `output.jsonl`.
+
+```bash
+python -m pytest -q --noconftest tests/test_eval_resume_contract.py
+```
+
+---
+
 # OpenHands Benchmarks
 
 This repository contains benchmark evaluation infrastructure for [OpenHands](https://github.com/OpenHands/OpenHands/) agents. It provides standardized evaluation pipelines for testing agent capabilities across various real-world tasks.
