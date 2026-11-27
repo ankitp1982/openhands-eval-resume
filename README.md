@@ -1,6 +1,8 @@
 ## Resume Contract Patch (`benchmarks/swebench/resume_contract.py`)
 
-This fork adds a pre-dispatch manifest guard for SWE-bench evaluation directories (`eval_output_dir/resume_manifest.json`). When resuming an interrupted run against an existing `output.jsonl`, `ensure_resume_manifest` verifies that `model_name`, `max_iterations`, `dataset`, `dataset_split`, `prompt_path`, and `workspace_type` match the active settings before worker processes spawn, raising `ResumeContractError` on drift instead of mixing incompatible attempts into `output.jsonl`.
+I ran into a resume collision while running SWE-bench evaluations where `construct_eval_output_dir` hashed `model_name`, `max_iterations`, and `eval_note`, but omitted `tool_preset` and prompt contents. Resuming an interrupted run after changing `--tool-preset` or editing the prompt file silently appended new attempts into the existing `output.jsonl`.
+
+This branch adds a pre-dispatch manifest guard (`resume-contract.json` inside the evaluation output directory). Before `run_infer.py` spawns worker processes against an existing `output.jsonl`, `ensure_resume_contract` checks `RUN_FIELDS` (`dataset`, `split`, `workspace`, `max_iterations`, `tool_preset`, `agent_type`, condenser bounds), `MODEL_FIELDS`, and `prompt_path_sha256`, raising `ResumeContractError` if any setting drifted.
 
 ```bash
 python -m pytest -q --noconftest tests/test_eval_resume_contract.py
