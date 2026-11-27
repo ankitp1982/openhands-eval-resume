@@ -12,18 +12,18 @@ python -m pytest -q --noconftest tests/test_eval_resume_contract.py
 
 This repository contains benchmark evaluation infrastructure for [OpenHands](https://github.com/OpenHands/OpenHands/) agents. It provides standardized evaluation pipelines for testing agent capabilities across various real-world tasks.
 
-⚠️ **Migration in Progress**: We are currently migrating the [benchmarks from OpenHands V0](https://github.com/OpenHands/OpenHands/tree/main/evaluation) to work with the [OpenHands Software Agent SDK](https://github.com/OpenHands/software-agent-sdk) infrastructure in V1.
+️ **Migration in Progress**: We are currently migrating the [benchmarks from OpenHands V0](https://github.com/OpenHands/OpenHands/tree/main/evaluation) to work with the [OpenHands Software Agent SDK](https://github.com/OpenHands/software-agent-sdk) infrastructure in V1.
 
 ## Available Benchmarks
 
 | Benchmark | Description | Status |
 |-----------|-------------|--------|
-| [SWE-Bench](benchmarks/swebench/) | Software engineering tasks from GitHub issues | ✅ Active |
-| [SWE-Bench Pro](benchmarks/swebenchpro/) | Long-horizon software engineering tasks from GitHub issues | ✅ Active |
-| [GAIA](benchmarks/gaia/) | General AI assistant tasks requiring multi-step reasoning | ✅ Active |
-| [Commit0](benchmarks/commit0/) | Python function implementation tasks with unit tests | ✅ Active |
-| [OpenAgentSafety](benchmarks/openagentsafety/) | AI agent safety evaluation in workplace scenarios with NPC interactions | ✅ Active |
-| [ProgramBench](benchmarks/programbench/) | Rebuild a program from scratch given only its compiled binary and docs | ✅ Active |
+| [SWE-Bench](benchmarks/swebench/) | Software engineering tasks from GitHub issues |  Active |
+| [SWE-Bench Pro](benchmarks/swebenchpro/) | Long-horizon software engineering tasks from GitHub issues |  Active |
+| [GAIA](benchmarks/gaia/) | General AI assistant tasks requiring multi-step reasoning |  Active |
+| [Commit0](benchmarks/commit0/) | Python function implementation tasks with unit tests |  Active |
+| [OpenAgentSafety](benchmarks/openagentsafety/) | AI agent safety evaluation in workplace scenarios with NPC interactions |  Active |
+| [ProgramBench](benchmarks/programbench/) | Rebuild a program from scratch given only its compiled binary and docs |  Active |
 
 See the individual benchmark directories for detailed usage instructions.
 
@@ -38,9 +38,9 @@ make build
 ```
 
 <details>
-<summary>📦 Submodule & Environment Setup (click to expand)</summary>
+<summary> Submodule & Environment Setup (click to expand)</summary>
 
-### 🧩 1. Initialize the Agent SDK submodule
+### 1. Initialize the Agent SDK submodule
 
 The Benchmarks project uses a **local git submodule** for the [OpenHands Agent SDK](https://github.com/OpenHands/software-agent-sdk).
 This ensures your code runs against a specific, reproducible commit.
@@ -60,7 +60,7 @@ If you ever clone this repository again, remember to re-initialize the submodule
 
 ---
 
-### 🏗️ 2. Build the environment
+### ️ 2. Build the environment
 
 Once the submodule is set up, install dependencies via [uv](https://docs.astral.sh/uv):
 
@@ -78,7 +78,7 @@ and ensures the `openhands-*` packages (SDK, tools, workspace, agent-server) are
 
 ---
 
-### 🔄 3. Update the submodule (when SDK changes)
+### 3. Update the submodule (when SDK changes)
 
 If you want to update to a newer version of the SDK:
 
@@ -204,7 +204,7 @@ See individual benchmark READMEs for specific usage examples.
 
 ## SDK Compatibility and Version Management
 
-⚠️ **Important**: The benchmarks repository depends on the [OpenHands Agent SDK](https://github.com/OpenHands/software-agent-sdk), and **not every version of the benchmarks is compatible with every version of the SDK**. As the SDK evolves and introduces new features, the benchmarks code may adopt these features, creating version dependencies.
+️ **Important**: The benchmarks repository depends on the [OpenHands Agent SDK](https://github.com/OpenHands/software-agent-sdk), and **not every version of the benchmarks is compatible with every version of the SDK**. As the SDK evolves and introduces new features, the benchmarks code may adopt these features, creating version dependencies.
 
 ### SWE-Bench image layering (docutils/roman)
 
@@ -213,7 +213,7 @@ Some SWE-Bench instances (notably `sphinx-doc`) require `docutils<0.21` and `rom
 - Other repos (e.g., scikit-learn) keep the base image unchanged.
 - Wrapped images reuse the same tag (no suffix) since they're evaluation-only.
 
-When running or dispatching builds, no extra flags are needed—the selective wrapping is handled for you.
+When running or dispatching builds, no extra flags are needed-the selective wrapping is handled for you.
 
 ### Evaluating Different SDK Versions
 
