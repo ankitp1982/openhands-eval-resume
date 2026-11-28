@@ -2,6 +2,7 @@ import json
 import os
 import tempfile
 import uuid
+from pathlib import Path
 from typing import Any, List
 
 from jinja2 import Environment, FileSystemLoader
@@ -15,6 +16,10 @@ from benchmarks.swebench.build_images import (
     wrap_image,
 )
 from benchmarks.swebench.config import INFER_DEFAULTS
+from benchmarks.swebench.resume_contract import (
+    build_manifest,
+    ensure_resume_contract,
+)
 from benchmarks.utils.acp import (
     add_acp_agent_metadata,
     build_acp_agent,
@@ -552,16 +557,20 @@ def main() -> None:
         eval_note=args.note,
     )
 
-    # Create critic instance from parsed arguments
-    critic = create_critic(args)
-    logger.info(f"Using critic: {type(critic).__name__}")
-    logger.info(f"Using tool preset: {args.tool_preset}")
-
     # Handle condenser configuration
     # --disable-condenser takes precedence over --enable-condenser and defaults
     enable_condenser = args.enable_condenser
     if args.disable_condenser:
         enable_condenser = False
+
+    ensure_resume_contract(
+        Path(structured_output_dir),
+        build_manifest(vars(args), llm.model_dump(), enable_condenser=enable_condenser),
+    )
+
+    critic = create_critic(args)
+    logger.info(f"Using critic: {type(critic).__name__}")
+    logger.info(f"Using tool preset: {args.tool_preset}")
 
     metadata = EvalMetadata(
         llm=llm,
